@@ -1,11 +1,13 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import { TabNavigator } from 'react-navigation';
+import { TabNavigator, StackNavigator } from 'react-navigation';
 
 import WelcomeScreen from './screens/WelcomeScreen';
 import AuthScreen from './screens/AuthScreen';
 import MapScreen from './screens/MapScreen';
 import DeckScreen from './screens/DeckScreen';
+import SettingsScreen from './screens/SettingsScreen';
+import ReviewScreen from './screens/ReviewScreen';
 
 export default function App() {
 
@@ -15,7 +17,13 @@ export default function App() {
     main: { 
       screen: TabNavigator({
         map: { screen: MapScreen },
-        deck: { screen: DeckScreen }
+        deck: { screen: DeckScreen },
+        review: {
+          screen: StackNavigator({
+            review: { screen: ReviewScreen },
+            settings: { screen: SettingsScreen }
+          })
+        }
       })
     }
   });
