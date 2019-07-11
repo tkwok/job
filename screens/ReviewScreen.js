@@ -6,7 +6,7 @@ class ReviewScreen extends Component {
         title: 'Review Jobs',
         header: () => {
             return {
-                right: <Text>Go Right</Text>
+                right: <Text>Go Right 123</Text>
             };
         }
     };
