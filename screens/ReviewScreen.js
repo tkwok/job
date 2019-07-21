@@ -37,4 +37,4 @@ class ReviewScreen extends Component {
     }
 }
 
-export default AuthScreen;
+export default ReviewScreen;

@@ -17,4 +17,4 @@ class MapScreen extends Component {
     }
 }
 
-export default AuthScreen;
+export default MapScreen;
