@@ -8,7 +8,7 @@ class Slides extends Component {
         if(index === this.props.data.length - 1) {
             return (
                 <Button 
-                    title="Onwards"
+                    title="Onward"
                     raised
                     buttonStyle={styles.buttonStyle}
                     onPress={this.props.onComplete}
@@ -18,12 +18,13 @@ class Slides extends Component {
     }
 
     renderSlides() {
-        return this.props.data.map((slide) => {
+        return this.props.data.map((slide, index) => {
             return (
                 <View 
                     key={slide.text} 
                     style={[styles.slideStyle, { backgroundColor: slide.color }]}> 
                     <Text style={styles.textStyle}>{slide.text}</Text>
+                    {this.renderLastSlide(index)}
                 </View>
             );
         });
