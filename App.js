@@ -25,6 +25,11 @@ const MainNavigator = createAppContainer(createBottomTabNavigator({  // set crea
         }
     })
     }
+}, {
+  navigationOptions: {
+    tabBar: { visible: false }
+  },
+  lazy: true
 }));
 
 export default class App extends React.Component {
