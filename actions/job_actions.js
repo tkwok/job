@@ -5,5 +5,5 @@ import {
 } from './types';
 
 export const fetchJobs = () => async (dispatch) => {
-    
+    dispatch({ type: FETCH_JOBS, payload: null });
 };
