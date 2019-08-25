@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { View, ActivityIndicator } from 'react-native';
-import { MapView } from 'expo';
-import { connect } from 'react-redux';
 import { Button } from 'react-native-elements';
-
+import * as Permissions from 'expo-permissions';
+import MapView from 'react-native-maps';
+import { connect } from 'react-redux';
+ 
 import * as actions from '../actions';
 
 class MapScreen extends Component {
@@ -16,8 +17,8 @@ class MapScreen extends Component {
         }
     };
 
-    componentDidMount() {
-        this.setState({ mapLoaded: true });
+    async componentDidMount() {
+        await Permissions.askAsync(Permissions.LOCATION);
     }
 
     onRegionChangeComplete = (region) => {
@@ -29,13 +30,13 @@ class MapScreen extends Component {
     };
 
     render() {
-        if (!this.state.mapLoaded) {
-            return (
-                <View style={{ flex: 1, justifyContent: 'center'}}>
-                    <ActivityIndicator size="large" />
-                </View>
-            )
-        }
+        // if (!this.state.mapLoaded) {
+        //     return (
+        //         <View style={{ flex: 1, justifyContent: 'center'}}>
+        //             <ActivityIndicator size="large" />
+        //         </View>
+        //     )
+        // }
         return (
             <View style={{ flex: 1 }}>
                 <MapView
