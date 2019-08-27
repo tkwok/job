@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, ActivityIndicator } from 'react-native';
+import { View } from 'react-native';
 import { Button } from 'react-native-elements';
 import * as Permissions from 'expo-permissions';
 import MapView from 'react-native-maps';
@@ -30,13 +30,6 @@ class MapScreen extends Component {
     };
 
     render() {
-        // if (!this.state.mapLoaded) {
-        //     return (
-        //         <View style={{ flex: 1, justifyContent: 'center'}}>
-        //             <ActivityIndicator size="large" />
-        //         </View>
-        //     )
-        // }
         return (
             <View style={{ flex: 1 }}>
                 <MapView
