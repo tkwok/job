@@ -5,8 +5,10 @@ import {
   PanResponder,
   Dimensions,
   LayoutAnimation,
-  UIManager
+  UIManager,
+  Platform
 } from 'react-native';
+import { Platform } from '@unimodules/core';
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
 const SWIPE_THRESHOLD = 0.25 * SCREEN_WIDTH;
@@ -93,14 +95,14 @@ class Swipe extends Component {
       return this.props.renderNoMoreCards();
     }
 
-    return this.props.data.map((item, i) => {
+    const deck = this.props.data.map((item, i) => {
       if (i < this.state.index) { return null; }
 
       if (i === this.state.index) {
         return (
           <Animated.View
             key={item.id}
-            style={[this.getCardStyle(), styles.cardStyle, { zIndex: 99 }]}
+            style={[this.getCardStyle(), styles.cardStyle, { zIndex: -i }]}
             {...this.state.panResponder.panHandlers}
           >
             {this.props.renderCard(item)}
@@ -116,7 +118,9 @@ class Swipe extends Component {
           {this.props.renderCard(item)}
         </Animated.View>
       );
-    }).reverse();
+    });
+
+    return Platform.OS == 'android'? deck : deck.reverse();
   }
 
   render() {
