@@ -8,7 +8,6 @@ import {
   UIManager,
   Platform
 } from 'react-native';
-import { Platform } from '@unimodules/core';
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
 const SWIPE_THRESHOLD = 0.25 * SCREEN_WIDTH;
@@ -114,8 +113,7 @@ class Swipe extends Component {
       return (
         <Animated.View
           key={item[this.props.keyProp]}
-          style={[styles.cardStyle, { top: 10 * (i - this.state.index), zIndex: 5 }]}
-        >
+          style={[styles.cardStyle, { top: 10 * (i - this.state.index), zIndex: 5 }]}>
           {this.props.renderCard(item)}
         </Animated.View>
       );
