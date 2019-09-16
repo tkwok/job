@@ -20,11 +20,17 @@ const MainNavigator = createAppContainer(createBottomTabNavigator({  // set crea
         deck: DeckScreen,
         review: {
         screen: createStackNavigator({
-            review: ReviewScreen,
-            settings: SettingsScreen
-        })
+          review: ReviewScreen,
+          settings: SettingsScreen
+         })
         }
-    })
+      }, {
+        tabBarPosition: 'bottom',
+        swipeEnabled: false,
+        tabBarOptions: {
+          labelStyle: { fontSize: 12 }
+        }
+      })
     }
 }, {
   navigationOptions: {

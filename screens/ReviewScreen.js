@@ -1,69 +1,77 @@
 import React, { Component } from 'react';
 import { View, Text, Platform, ScrollView, Linking } from 'react-native';
-import { Button, Card } from 'react-native-elements';
+import { Button, Card, Icon } from 'react-native-elements';
 import { MapView } from 'expo';
 import { connect } from 'react-redux';
 class ReviewScreen extends Component {
-    static navigationOptions = ({ navigation }) => {
-        return {
-          headerRight: (
-            <Button
-                title="Settings"
-                onPress={() => navigation.navigate('settings')}
-                backgroundColor="rgba(0,0,0,0)"
-                color="rgba(0, 122,255, 1)"
-            />
-          ),
-          style: {
-            marginTop: Platform.OS === 'android'? 24: 0
-          }
-        };
+  static navigationOptions = {
+    title: 'Review Jobs',
+    tabBar: {
+        icon: ({ tintColor }) => {
+            return <Icon name="favorite" size={30} color={tintColor} />
+        }
+    },
+    header: ({ navigate }) => {
+      return {
+        right: (
+          <Button
+            title="Settings"
+            onPress={() => navigation.navigate('settings')}
+            backgroundColor="rgba(0,0,0,0)"
+            color="rgba(0, 122,255, 1)"
+          />
+        ),
+        style: {
+          marginTop: Platform.OS === 'android'? 24: 0
+        }
+      }
+    }
+  };
+
+  renderLikedJobs() {
+    return this.props.likedJobs.map(job => {
+      const { company, formattedRelativeTime, url, 
+        longitude, latitude, jobtitle, jobkey
+      } = job;
+
+      const initialRegion = {
+        longitude: longitude,
+        latitude: latitude,
+        latitudeDelta: 0.045,
+        longitudeDelta: 0.02
       };
 
-    renderLikedJobs() {
-      return this.props.likedJobs.map(job => {
-        const { company, formattedRelativeTime, url, 
-          longitude, latitude, jobtitle, jobkey
-        } = job;
-
-        const initialRegion = {
-          longitude: longitude,
-          latitude: latitude,
-          latitudeDelta: 0.045,
-          longitudeDelta: 0.02
-        };
-
-        return (
-          <Card title={jobtitle} key={jobkey}>
-            <View styles={{ height: 200 }}>
-              <MapView 
-                style={{ flex: 1}}
-                cacheEnabled={Platform.OS === 'android'}
-                scrollEnabled={false}
-                initialRegion={initialRegion}
-              />
-              <View style={styles.detailWrapper}>
-                <Text style={styles.italics}>{company}</Text>
-                <Text style={styles.italics}>{formattedRelativeTime}</Text>
-              </View>
-              <Button
-                title="Apply Now"
-                backgroundColor="#03A9F4"
-                onPress={() => Linking.openURL(url)}
-              />
+      return (
+        <Card title={jobtitle} key={jobkey}>
+          <View styles={{ height: 200 }}>
+            <MapView 
+              style={{ flex: 1}}
+              cacheEnabled={Platform.OS === 'android'}
+              scrollEnabled={false}
+              initialRegion={initialRegion}
+            />
+            <View style={styles.detailWrapper}>
+              <Text style={styles.italics}>{company}</Text>
+              <Text style={styles.italics}>{formattedRelativeTime}</Text>
             </View>
-          </Card>
-        );
-      });
-    }
+            <Button
+              title="Apply Now"
+              backgroundColor="#03A9F4"
+              onPress={() => Linking.openURL(url)}
+            />
+          </View>
+        </Card>
+      );
+    });
+  }
 
-    render() {
-        return (
-            <ScrollView>
-              {this.renderLikedJobs()}
-            </ScrollView>
-        );
-    }
+  render() {
+    return (
+      <ScrollView>
+        {this.renderLikedJobs()}
+      </ScrollView>
+    );
+  }
 }
 
 const styles = {
