@@ -1,3 +1,4 @@
+import { REHYDRATE } from 'redux-persist/constants';
 import {
     LIKE_JOB,
     CLEAR_LIKED_JOBS
@@ -13,6 +14,8 @@ export default function(state, action) {
                 ...state]
         case CLEAR_LIKED_JOBS:
             return [];
+        case REHYDRATE:
+            return action.payload.likedJobs || [];
         default: 
             return state;
     }

@@ -4,6 +4,9 @@ import { createBottomTabNavigator, createStackNavigator, createAppContainer } fr
 import { Provider } from 'react-redux';
 import store from './store';
 
+import Expo, { Notifications } from 'expo';
+import registerForNotifications from './services/push_notification';
+
 import AuthScreen from "./screens/AuthScreen";
 import WelcomeScreen from "./screens/WelcomeScreen";
 import MapScreen from "./screens/MapScreen";
@@ -40,6 +43,21 @@ const MainNavigator = createAppContainer(createBottomTabNavigator({  // set crea
 }));
 
 export default class App extends React.Component {
+
+  componentDidMount() {
+    registerForNotifications();
+    Notifications.addListener((notification) => {
+      const { data: { text }, origin } = notification;
+      if (origin === 'received' && text) {
+        Alert.alert(
+          'New Push Notification',
+          text,
+          [{ text: 'OK' }]
+        );
+      }
+    });
+  }
+
   render() {
     return (
       <Provider store={store}>
